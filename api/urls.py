@@ -5,11 +5,12 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-from .views import ProfileViewSet, data, data_pk
+from .views import ProfileViewSet, data, data_pk, UsersViewSet
 
 
 simpleRouter = SimpleRouter()
 simpleRouter.register('profile', ProfileViewSet, basename='profile-api')
+simpleRouter.register('users', UsersViewSet, basename='users-api')
 
 urlpatterns = [
     path('profile/data/', data, name='data'),

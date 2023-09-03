@@ -1,4 +1,4 @@
-
+ultima aula 305
 
 # History
 
@@ -27,3 +27,15 @@ This password is too short. It must contain at least 8 characters.
 This password is too common.
 Bypass password validation and create user anyway? [y/N]: y
 Superuser created successfully.
+
+(venv) catalunha@pop-os:~/myapp/pocs/poc_login_api$ python manage.py runserver 192.168.10.113:8000
+
+nao esqueça de habilitar a leitura do .env colocando em manage.py
+```
+from dotenv import load_dotenv
+def main():
+    load_dotenv()
+    ...
+```
+
+
