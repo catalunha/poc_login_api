@@ -3,8 +3,7 @@
 Backend do POC para testar login
 
 Usando:
-DjangoREST
-JWT
+* JWT
 
 O frontend deste app é poc_login
 
