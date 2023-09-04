@@ -30,6 +30,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = ProfileModel.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated, ]
+    http_method_names = ['get', 'patch', 'post', 'delete', 'options', 'head', ]
 
     def list(self, request, *args, **kwargs):
 
@@ -52,8 +53,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = UsersSerializer
-    # permission_classes = [IsAuthenticated, ]
-    # permission_classes = [IsAuthenticated, ]
+    permission_classes = [IsAuthenticated, ]
+    http_method_names = ['get', 'patch', 'post', 'delete', 'options', 'head', ]
 
     def get_queryset(self):
         # print(self.request.user.__dict__)  # type: ignore
