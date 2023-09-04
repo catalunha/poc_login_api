@@ -1,29 +1,14 @@
 # type: ignore
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
+from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-# from django.contrib.auth.models import User
-from rest_framework.decorators import api_view
+# from rest_framework.decorators import api_view
 from rest_framework.response import Response
 # from rest_framework import status
-from .serializers import ProfileSerializer, UsersSerializer
+from .serializers import ProfileSerializer, RegisterSerializer, UsersSerializer
 from .models import ProfileModel
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action
-# from .permissions import IsQwner
-
-
-@api_view()
-def data(request):
-    a = ProfileModel.objects.all()
-
-    return Response({"data": len(a)})
-
-
-@api_view()
-def data_pk(request, pk):
-    a = ProfileModel.objects.all()
-
-    return Response({"data_pk": len(a), "pk": pk, })
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
@@ -51,10 +36,20 @@ class ProfileViewSet(viewsets.ModelViewSet):
         return qs
 
 
+class RegisterViewSet(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
+    permission_classes = [AllowAny, ]
+
+    def get_queryset(self):
+        qs = User.objects.filter(id=self.request.user.id)  # type: ignore
+        return qs
+
+
 class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = UsersSerializer
     permission_classes = [IsAuthenticated, ]
-    http_method_names = ['get', 'patch', 'post', 'delete', 'options', 'head', ]
+    http_method_names = ['get', 'patch', 'options', 'head', ]
 
     def get_queryset(self):
         # print(self.request.user.__dict__)  # type: ignore
@@ -64,13 +59,27 @@ class UsersViewSet(viewsets.ModelViewSet):
 
         return qs
 
-    def get_permissions(self):
-        if self.request.method == 'POST':
-            return []
-        return super().get_permissions()
+    # def get_permissions(self):
+    #     if self.request.method == 'POST':
+    #         return []
+    #     return super().get_permissions()
 
     @action(methods=['get'], detail=False)
     def me(self, request, *arg, **kwargs):
         obj = self.get_queryset().first()
         serializer = self.get_serializer(instance=obj)
         return Response(serializer.data)
+
+
+# @api_view()
+# def data(request):
+#     a = ProfileModel.objects.all()
+
+#     return Response({"data": len(a)})
+
+
+# @api_view()
+# def data_pk(request, pk):
+#     a = ProfileModel.objects.all()
+
+#     return Response({"data_pk": len(a), "pk": pk, })
