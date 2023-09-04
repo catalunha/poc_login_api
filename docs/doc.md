@@ -39,3 +39,15 @@ def main():
 ```
 
 
+ToRead:
+Outra forma de criar profile sem usar signals
+https://stackoverflow.com/questions/50204365/django-drf-create-user
+
+https://medium.com/django-rest/django-rest-framework-login-and-register-user-fd91cf6029d5
+https://medium.com/django-rest/django-rest-framework-jwt-authentication-94bee36f2af8
+https://medium.com/django-rest/logout-django-rest-framework-eb1b53ac6d35
+https://medium.com/django-rest/django-rest-framework-change-password-and-update-profile-1db0c144c0a3
+https://medium.com/django-rest/many-to-many-relationship-manytomanyfield-9b8201d879ab
+https://medium.com/django-rest
+
+Read:
