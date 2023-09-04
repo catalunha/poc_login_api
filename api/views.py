@@ -9,6 +9,7 @@ from .serializers import ProfileSerializer, UsersSerializer
 from .models import ProfileModel
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
+# from .permissions import IsQwner
 
 
 @api_view()
@@ -51,7 +52,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = UsersSerializer
-    permission_classes = [IsAuthenticated, ]
+    # permission_classes = [IsAuthenticated, ]
+    # permission_classes = [IsAuthenticated, ]
 
     def get_queryset(self):
         # print(self.request.user.__dict__)  # type: ignore
@@ -60,6 +62,11 @@ class UsersViewSet(viewsets.ModelViewSet):
         qs = User.objects.filter(id=self.request.user.id)  # type: ignore
 
         return qs
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return []
+        return super().get_permissions()
 
     @action(methods=['get'], detail=False)
     def me(self, request, *arg, **kwargs):
