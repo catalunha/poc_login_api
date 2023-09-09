@@ -51,8 +51,8 @@ https://medium.com/django-rest/many-to-many-relationship-manytomanyfield-9b8201d
 https://medium.com/django-rest
 
 Read:
-
-
+9T#2C7F+W$NAmq+10
+123456qwerty!@#$%&
 # .vscode/settings.json
 
 ```json

@@ -9,7 +9,7 @@ O frontend deste app é poc_login
 
 ## Requisitos desta api
 
-### [Ok] register
+### [Ok] User Create
 * ações sem autenticação
 * frontend envia POST para ~/user/create/
 ```json
@@ -31,7 +31,7 @@ O frontend deste app é poc_login
 }
 ```
 
-### [Ok] login
+### [Ok] User Login
 * ações sem autenticação
 * frontend envia POST para ~/token/
 ```json
@@ -48,7 +48,7 @@ O frontend deste app é poc_login
 }
 ```
 
-### reset password
+### User Reset password
 * ações sem autenticação
 * frontend envia POST para ~/user/resetpassword/
 ```json
@@ -56,8 +56,12 @@ O frontend deste app é poc_login
   "username":"u1@gmail.com",
 }
 ```
-* api registra username e numero no bd de numeros
+* api registra userId, username e numero no bd de numeros
 * api envia email com numero para conferencia
+* api responde vazio com http=200
+```json
+{}
+```
 * cliente confere seu email e anota numero
 * frontend envia POST para ~/user/newpassword/
 ```json
@@ -73,12 +77,9 @@ status = 200 OK
 ```json
 {}
 ```
-* api registra ate 3 tentativas se numero e username nao conferem. status = 406 Not Acceptable
-status = 406 Not Acceptable
+* api registra ate 3 tentativas se numero e username nao conferem. status = 412 se ultrapassar 3 tentativas
 ```json
-{
-  "attempt":1
-}
+{}
 ```
 * api retorna status = 400 Bad Request se username e numero inexistentes no bd ou maior que tentativas. 
 status = 400 Bad Request
@@ -87,58 +88,41 @@ status = 400 Bad Request
 ```
 * frontend tem q enviar username novamente
 
-### get me
+### [Ok] User Me
 * ações com autenticação
-* frontend envia token para get /me
+* frontend envia GET para /user/me/
 ```json
 {
 	"access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkzODM3NTE1LCJpYXQiOjE2OTM4MzM5MTUsImp0aSI6IjViNzllYzhkOGM2ZDRlYTE4YzRiMGY2ZjkyZjA4YjY3IiwidXNlcl9pZCI6MTJ9.NMkzD8JyC5hM7WV18Tc3Ej8zBLla1dAbCccnQtrDzbI"
 }
 ```
-* api responde com dados de user logado
-```json
-{
-  "id":1,
-  "username":"u1@gmail.com",
-}
-```
-
-### get profile
-* ações com autenticação
-* frontend envia token e get profile/:id/
 * api responde com dados
 ```json
 {
-  "id":1,
-  "user":10,
-  "username":"u1@gmail.com",
-  "is_active":true,
-  "office":["boss","sec"],
-  "nickname":"a",
-  "photo":"bucket/a.png",
-  "phone":"63992304757",
+	"user": {
+		"id": 9,
+		"username": "a1@gmail.com",
+		"is_active": true
+	},
+	"profile": {
+		"id": 1,
+		"user": 9,
+		"username": "a1@gmail.com",
+		"nickname": null,
+		"name": null,
+		"photo": null,
+		"phone": null,
+		"is_active": false
+	}
 }
 ```
-* frontend envia token e POST para profile/:id/edit
-* apenas usuario owner pode atualizar [nickname, photo, phone, name,] 
-```json
-{
-  "id":1,
-  "nickname":"a",
-  "photo":"~/a.png",
-  "phone":"123",
-  "name":"A",
-}
-```
-* frontend envia token e POST para profile/:id/config
-* apenas profile com office=boss pode atualizar outro profile em [is_active, office(boss,sec,fin,admin),]
-```json
-{
-  "id":1,
-  "is_active":true,
-  "office":["boss","sec"],
-}
-```
+
+### Profile
+* ações com autenticação
+* frontend envia Token JWT e REST para profile/
+* frontend envia Token JWT e REST para profile/:id/
+* api responde com dados
+
 ## Getting Started
 $
 python manage.py runserver 192.168.10.113:8000
