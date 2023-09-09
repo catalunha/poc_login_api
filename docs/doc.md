@@ -51,3 +51,31 @@ https://medium.com/django-rest/many-to-many-relationship-manytomanyfield-9b8201d
 https://medium.com/django-rest
 
 Read:
+
+
+# .vscode/settings.json
+
+```json
+{
+  "python.analysis.typeCheckingMode": "basic",
+  "python.defaultInterpreterPath": "venv/bin/python",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8", // ms-python.python
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "editor.defaultFormatter": "ms-python.autopep8", // ms-python.python
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
+}
+```
