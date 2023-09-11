@@ -1,0 +1,18 @@
+{
+    "client": "Thunder Client",
+    "environmentName": "(Local Env)",
+    "dateExported": "2023-09-11T13:44:41.645Z",
+    "version": "1.0",
+    "global": true,
+    "local": true,
+    "variables": [
+        {
+            "name": "baseurl",
+            "value": "http://127.0.0.1:8000/"
+        },
+        {
+            "name": "access",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk0NDQyMDY0LCJpYXQiOjE2OTQ0Mzg0NjQsImp0aSI6ImI2ZmYxYWYyNzg4MDQxMjFiOGZkMDk4ZDQ5YTQzMDg2IiwidXNlcl9pZCI6MTB9.YWKA8jGJ9-mSCYG_w5_fsa57ODKt1YyF5D6kckyTUEA"
+        }
+    ]
+}

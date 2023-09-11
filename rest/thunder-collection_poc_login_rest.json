@@ -1,0 +1,77 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "poc_login_rest",
+    "dateExported": "2023-09-11T13:43:47.281Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "cf267f5c-cff8-4133-80e8-09f7aa132c8d",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2023-09-11T13:16:11.631Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "d35d5798-db78-4f8b-a74b-9ed716ba29bd",
+            "colId": "bb28c3aa-cf61-4e3a-8978-571ef5541cf8",
+            "containerId": "cf267f5c-cff8-4133-80e8-09f7aa132c8d",
+            "name": "Create Token",
+            "url": "{{baseurl}}/api/v0/token/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-09-11T13:16:39.042Z",
+            "modified": "2023-09-11T13:17:16.191Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"a1@gmail.com\",\n  \"password\": \"123qwe!@#\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6c95b6c3-78c7-40f6-a70b-98fabbd497ac",
+            "colId": "bb28c3aa-cf61-4e3a-8978-571ef5541cf8",
+            "containerId": "cf267f5c-cff8-4133-80e8-09f7aa132c8d",
+            "name": "Create Verify",
+            "url": "{{baseurl}}/api/v0/token/verify/",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-09-11T13:18:42.428Z",
+            "modified": "2023-09-11T13:20:45.407Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"token\": \"{{access}}\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
