@@ -8,10 +8,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "user",
-            "username",
             "nickname",
             "name",
             "photo",
             "phone",
-            "is_active",
         ]

@@ -11,6 +11,7 @@ from api.views import (
     UserResetPasswordAPIView,
     UserNewPasswordAPIView,
     ProfileModelViewSet,
+    Test1,
 )
 
 
@@ -18,10 +19,13 @@ simpleRouter = SimpleRouter()
 simpleRouter.register("profile", ProfileModelViewSet, basename="profile_api")
 
 urlpatterns = [
+    path("test1/", Test1.as_view(), name="test1"),
     path("user/create/", UserCreateAPIView.as_view(), name="user_create"),
     path("user/me/", UserMeAPIView.as_view(), name="user_me"),
     path(
-        "user/resetpassword/", UserResetPasswordAPIView.as_view(), name="user_register"
+        "user/resetpassword/",
+        UserResetPasswordAPIView.as_view(),
+        name="user_register",
     ),
     path("user/newpassword/", UserNewPasswordAPIView.as_view(), name="user_register"),
     path("user/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

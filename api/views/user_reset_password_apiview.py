@@ -2,64 +2,46 @@
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-from rest_framework import status
 from rest_framework.views import APIView
-
 from rest_framework.response import Response
+from rest_framework.exceptions import ParseError, Throttled
 
 from api.models import ResetPasswordNumberModel
+from api.exceptions import EmailServiceUnavaliable
 
 
 class UserResetPasswordAPIView(APIView):
     def post(self, request):
-        print("UserResetPassword.post")
-        print("request.user: ", request.user)
-        print("request.user.id: ", request.user.id)
+        print("UserResetPasswordAPIView.post")
         print("request.data: ", request.data)
-        print("request.data.keys: ", request.data.keys())
+
         if request.data.get("username") is None:
-            return Response(
-                {"username": "Este campo não foi encontrado"},
-                status=status.HTTP_404_NOT_FOUND,
-            )
+            raise ParseError("O campo username não foi informado")
         user = get_object_or_404(
             User.objects.all(),
             username=request.data["username"],
         )
-        print(user.id)
-        # +++ delete old numbers
-        resetPasswordNumberModel = ResetPasswordNumberModel.objects.filter(
-            username=request.data["username"]
-        )
-        resetPasswordNumberModel.delete()
+        print("user.id", user.id)
+
+        number = self._update_number(user.username)
+
+        self._send_mail(number)
+
+        return Response({"detail": "Enviamos um email com instruções"})
+
+    def _update_number(self, username):
+        updated = True
+        if not updated:
+            raise Throttled(wait=60 * 60)
+        ResetPasswordNumberModel.objects.filter(username=username).delete()
+
         newResetPasswordNumberModel = ResetPasswordNumberModel.objects.create(
-            user=user,
-            username=user.username,
+            username=username
         )
-        print(newResetPasswordNumberModel.number)
-        # --- delete old numbers
-        # +++ analisar tempo de envio
-        # hoje deleta o old number mas é necessario analisar melhor este contexto
-        # print(resetPasswordNumberModel)
-        # # print(len(resetPasswordNumberModel))
-        # past = resetPasswordNumberModel.created.replace(tzinfo=None)
-        # print("past: ", past)
-        # now = datetime.datetime.now()
-        # print("now: ", now)
-        # dif = now - past
-        # minutes = dif.total_seconds() / 60
-        # print("dif: ", dif)
-        # print("minutes: ", minutes)
-        # --- analisar tempo de envio
+        print("Número enviado ao email: ", newResetPasswordNumberModel.number)
+        return newResetPasswordNumberModel.number
 
-        # +++ enviar email
-        if not self._send_mail(newResetPasswordNumberModel.number):
-            return Response(
-                {"erro": "codigo nao enviado para email"},
-                status=status.HTTP_412_PRECONDITION_FAILED,
-            )
-        # --- enviar email
-        return Response()
-
-    def _send_mail(number):
-        return True
+    def _send_mail(self, number):
+        sent = True
+        if not sent:
+            raise EmailServiceUnavaliable()

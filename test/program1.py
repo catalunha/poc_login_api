@@ -1,12 +1,10 @@
-# from api.models import ResetPasswordNumberModel
+from django.contrib.auth.models import User
+from api.models import ResetPasswordNumberModel
 
-# list = ResetPasswordNumberModel.objects.all()
-# print(list)
-# # num = ResetPasswordNumberModel.objects.get(pk=1)
-# # num.attempt = 0
-# # num.save()
+list = ResetPasswordNumberModel.objects.all()
+for item in list:
+    print(item)
 
-print("aa")
-a = 1
-print(a)
-print(id(a))
+
+user = User.objects.get(username="a1@gmail.com")
+print(user.id)

@@ -14,9 +14,11 @@ class UserMeAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        print("MeAPIView.get")
+        print("UserMeAPIView.get")
+
         user = self.request.user
         profile = user.profiles
+
         profileSerializer = ProfileSerializer(profile)
 
         return Response(
