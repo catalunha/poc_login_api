@@ -1,5 +1,6 @@
 import random
 from django.db import models
+from account.models import BaseModel
 
 
 def create_number():
@@ -7,10 +8,9 @@ def create_number():
     return number
 
 
-class ResetPasswordNumberModel(models.Model):
-    username = models.EmailField()
+class ResetPasswordNumberModel(BaseModel):
+    email = models.EmailField()
     number = models.CharField(max_length=6, default=create_number, blank=True)
-    created = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __str__(self) -> str:
-        return f"id:{self.id}, username:{self.username}, number:{self.number}, created:{self.created}"
+        return f"id:{self.id}, email:{self.email}, number:{self.number}"

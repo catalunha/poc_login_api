@@ -1,5 +1,7 @@
 # type: ignore
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
 from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView
@@ -17,18 +19,18 @@ class UserNewPasswordAPIView(APIView):
         userNewPasswordSerializer = UserNewPasswordSerializer(data=request.data)
         userNewPasswordSerializer.is_valid(raise_exception=True)
 
-        username = request.data["username"]
+        email = request.data["email"]
         number = request.data["number"]
         password = request.data["password"]
 
         resetPasswordNumberModel = get_object_or_404(
             ResetPasswordNumberModel.objects.all(),
-            username=username,
+            email=email,
             number=number,
         )
         print(resetPasswordNumberModel)
 
-        user = User.objects.get(username=username)
+        user = get_user_model().objects.get(email=email)
         user.set_password(password)
         user.save()
 

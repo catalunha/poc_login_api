@@ -1,10 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+from account.models import BaseModel
 
 
-class ProfileModel(models.Model):
+class ProfileModel(BaseModel):
     user = models.OneToOneField(
-        User,
+        settings.AUTH_USER_MODEL,
         related_name="profiles",
         related_query_name="profile",
         on_delete=models.CASCADE,

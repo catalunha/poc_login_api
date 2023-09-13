@@ -1,5 +1,6 @@
 # type: ignore
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -17,10 +18,11 @@ class UserCreateAPIView(APIView):
         userCreateSerializer = UserCreateSerializer(data=request.data)
         userCreateSerializer.is_valid(raise_exception=True)
 
-        username = request.data["username"]
+        email = request.data["email"]
         password = request.data["password"]
 
-        user = User.objects.create_user(username, username, password)
+        # user = get_user_model()
+        user = get_user_model().objects.create_user(email, password)
         user.save()
 
         self._createProfile(user)

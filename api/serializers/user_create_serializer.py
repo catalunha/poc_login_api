@@ -1,15 +1,15 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 
 
 class UserCreateSerializer(serializers.Serializer):
-    username = serializers.EmailField(
+    email = serializers.EmailField(
         required=True,
         validators=[
             UniqueValidator(
-                queryset=User.objects.all(),
+                queryset=get_user_model().objects.all(),
             ),
         ],
     )
@@ -19,6 +19,6 @@ class UserCreateSerializer(serializers.Serializer):
     )
 
     def validate(self, data):
-        if data["username"] == data["password"]:
-            raise serializers.ValidationError("Username e email são iguais")
+        if data["email"] == data["password"]:
+            raise serializers.ValidationError("email e password não pode ser iguais")
         return data

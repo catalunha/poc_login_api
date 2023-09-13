@@ -25,7 +25,7 @@ class UserMeAPIView(APIView):
             {
                 "user": {
                     "id": user.id,
-                    "username": user.username,
+                    "email": user.email,
                     "is_active": user.is_active,
                 },
                 "profile": profileSerializer.data,

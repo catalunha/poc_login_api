@@ -1,5 +1,7 @@
 # type: ignore
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
 from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView
@@ -18,7 +20,7 @@ class UserResetPasswordAPIView(APIView):
         if request.data.get("username") is None:
             raise ParseError("O campo username não foi informado")
         user = get_object_or_404(
-            User.objects.all(),
+            get_user_model().objects.all(),
             username=request.data["username"],
         )
         print("user.id", user.id)
