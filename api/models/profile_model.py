@@ -15,4 +15,4 @@ class ProfileModel(models.Model):
     phone = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self) -> str:
-        return f"ProfileModel {self.id}: {self.username}"
+        return f"ProfileModel {self.id}: {self.nickname}"
