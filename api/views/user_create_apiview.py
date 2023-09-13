@@ -24,11 +24,10 @@ class UserCreateAPIView(APIView):
         user.save()
 
         self._createProfile(user)
-
+        print("UserCreateAPIView.post end")
         return Response({"user": user.id}, status=status.HTTP_200_OK)
 
-    def _createProfile(user):
+    def _createProfile(self, user):
         ProfileModel.objects.create(
             user=user,
-            username=user.username,
         )

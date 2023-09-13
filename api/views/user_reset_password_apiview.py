@@ -38,10 +38,10 @@ class UserResetPasswordAPIView(APIView):
         newResetPasswordNumberModel = ResetPasswordNumberModel.objects.create(
             username=username
         )
-        print("Número enviado ao email: ", newResetPasswordNumberModel.number)
         return newResetPasswordNumberModel.number
 
     def _send_mail(self, number):
+        print("Número enviado ao email: ", number)
         sent = True
         if not sent:
             raise EmailServiceUnavaliable()
